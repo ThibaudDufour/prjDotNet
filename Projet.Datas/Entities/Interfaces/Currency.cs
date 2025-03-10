@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Datas.Entities
+namespace Projet.Datas.Entities.Interfaces
 {
-    class Operation
+    public enum Currency
     {
+        EUR,
+        USD,
+        CNY,
+        GBP
     }
 }
