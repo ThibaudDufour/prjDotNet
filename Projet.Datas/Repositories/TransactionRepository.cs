@@ -32,9 +32,9 @@ namespace Projet.Datas.Repositories
         public async Task<Transaction?> GetById(int id)
         {
             using var context = new MyDbContext();
-			return = await context.Transactions
+            return await context.Transactions
                                             .Where<Transaction>(testc => testc.Id == id)
-                                            .SingleOrDefaultAsync<Transaction>()
+                                            .SingleOrDefaultAsync<Transaction>();
         }
 
         public async Task<int> Delete(int id)
