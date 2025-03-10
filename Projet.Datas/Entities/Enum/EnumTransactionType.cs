@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projet.Datas.Entities.Interfaces
 {
-    public enum TransactionType
+    public enum EnumTransactionType
     {
         CashWithdrawal,
         CardPayment,
