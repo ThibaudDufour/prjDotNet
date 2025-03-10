@@ -3,16 +3,16 @@
     public interface IReadOnlyRepository<T>
 		where T : class
 	{
-		T GetById(int id);
-		IEnumerable<T> GetAll();
+		Task<T?> GetById(int id);
+		Task<List<T>> GetAll();
 	}
 
 	public interface IWriteOnlyRepository<T>
 		where T : class
 	{
-		void Add(T entity);
-		void Update(T entity);
-		void Delete(int id);
+		Task<int> Add(T entity);
+		Task<int> Update(T entity);
+		Task<int> Delete(int id);
 	}
 
 	public interface IRepository<T> : IReadOnlyRepository<T>, IWriteOnlyRepository<T>
