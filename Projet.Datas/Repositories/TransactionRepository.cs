@@ -26,24 +26,20 @@ namespace Projet.Datas.Repositories
         {
             using var context = new MyDbContext();
             context.Transactions.Add(transEntity);
-            var lineAffected = await context.SaveChangesAsync();
-            return lineAffected;
-            throw new NotImplementedException();
+            return await context.SaveChangesAsync();
         }
 
         public async Task<Transaction?> GetById(int id)
         {
             using var context = new MyDbContext();
-            var transaction = await context.Transactions
+			return = await context.Transactions
                                             .Where<Transaction>(testc => testc.Id == id)
-                                            .SingleOrDefaultAsync<Transaction>();
-            return transaction;
+                                            .SingleOrDefaultAsync<Transaction>()
         }
 
         public async Task<int> Delete(int id)
         {
             using var context = new MyDbContext();
-            //Transaction transactionToRemove = await context.Transactions.SingleOrDefaultAsync<Transaction>(t => t.Id == id);
             Transaction transactionToRemove = await this.GetById(id);
 
             int lineAffected = 0;

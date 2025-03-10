@@ -2,7 +2,7 @@
 
 namespace Projet.Datas.Entities
 {
-	public class Compte
+	public class Account
 	{
 		[Key]
 		public string AccountNumber { get; set; } = Guid.NewGuid().ToString();
@@ -11,7 +11,7 @@ namespace Projet.Datas.Entities
 		public int Overdraft { get; set; } = 1000;
 
 		public int OwnerId { get; set; }
-		public Client Owner { get; set; }
+		public Customer Owner { get; set; }
 
 		public List<Transaction> Transactions { get; set; }
 

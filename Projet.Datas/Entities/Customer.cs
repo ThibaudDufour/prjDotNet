@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Projet.Datas.Entities
 {
-	public abstract class Client
+	public abstract class Customer
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,6 +18,6 @@ namespace Projet.Datas.Entities
 		[NotMapped]
 		public string FullAddress => $"{Label} {AdditionalInfo}, {PostalCode} {City}";
 
-		public List<Compte> Accounts { get; set; }
+		public List<Account> Accounts { get; set; }
 }
 }
