@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projet.Datas.Entities.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Projet.Business
 
         [Required]
         [RegularExpression(@"^(SARL|SA|SAS|EURL)$", ErrorMessage = "Le statut juridique doit être SARL, SA, SAS ou EURL.")]
-        public string LegalStatus { get; set; }
+        public EnumLegalStatus LegalStatus { get; set; }
 
         [Required]
         [StringLength(100, MinimumLength = 1, ErrorMessage = " Le label ne peut pas dépasser 100 caracteres")]
