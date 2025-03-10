@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Projet.Datas.Entities
+﻿namespace Projet.Datas.Entities
 {
-    class Anomaly : Transaction
+    public class Anomaly : Transaction
     {
+
     }
 }
