@@ -11,7 +11,8 @@ namespace Projet.Luhn
             int sum = 0;
 
             // Checks if the inputed Card number only contains numeric characters
-            if (!IsOnlyNumbers(CardNumber))
+            // Also checks if there is 16 numbers for the card number
+            if (!IsOnlyNumbers(CardNumber) && CardNumber.Length != 16)
             {
                 return false;
             }
