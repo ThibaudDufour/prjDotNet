@@ -18,9 +18,9 @@ namespace Projet.Datas.Entities
 
         public DateTime TransactionDate { get; set; }
 
-        public string Currency { get; set; }
+        public EnumCurrency Currency { get; set; }
 
-		public int BankAccountId { get; set; }
+		public string BankAccountNumber { get; set; }
 		public Account BankAccount { get; set; }
 	}
 }

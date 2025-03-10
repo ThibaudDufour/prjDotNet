@@ -31,7 +31,7 @@ namespace Projet.Datas.Repositories
 			return await context.Accounts
 				.Include("Customers")
 				.Include("Transactions")
-				.Where(a => a.OwnerId == customerId)
+				.Where(a => a.Owners.Any(o => o.Id == customerId))
 				.ToListAsync();
 		}
 
