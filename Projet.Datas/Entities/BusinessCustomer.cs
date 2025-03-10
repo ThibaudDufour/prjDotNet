@@ -1,6 +1,6 @@
 ﻿namespace Projet.Datas.Entities
 {
-    public class ClientProfesionnel : Client
+    public class BusinessCustomer : Customer
     {
         public string Siret {  get; set; }
         public string LegalStatus { get; set; }

@@ -21,6 +21,6 @@ namespace Projet.Datas.Entities
         public string Currency { get; set; }
 
 		public int BankAccountId { get; set; }
-		public Compte BankAccount { get; set; }
+		public Account BankAccount { get; set; }
 	}
 }

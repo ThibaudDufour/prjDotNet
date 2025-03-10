@@ -30,6 +30,9 @@ namespace Projet.Datas
 			modelBuilder.Entity<Customer>().UseTptMappingStrategy();
 			modelBuilder.Entity<BusinessCustomer>().ToTable("BusinessCustomers");
 			modelBuilder.Entity<PrivateCustomer>().ToTable("PrivateCustomers");
+
+			modelBuilder.Entity<Transaction>().UseTptMappingStrategy();
+			modelBuilder.Entity<Anomaly>().ToTable("Anomalies");
 		}
 	}
 }
