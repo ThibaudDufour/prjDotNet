@@ -21,27 +21,50 @@ namespace Projet.Datas.Repositories
             using var context = new MyDbContext();
             context.Database.EnsureCreated();
         }
-        public async Task<int> Add(Transaction entity)
+
+        public async Task<int> Add(Transaction transEntity)
         {
+            using var context = new MyDbContext();
+            context.Transactions.Add(transEntity);
+            var lineAffected = await context.SaveChangesAsync();
+            return lineAffected;
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public async Task<Transaction?> GetById(int id)
         {
-            throw new NotImplementedException();
+            using var context = new MyDbContext();
+            var transaction = await context.Transactions
+                                            .Where<Transaction>(testc => testc.Id == id)
+                                            .SingleOrDefaultAsync<Transaction>();
+            return transaction;
         }
 
-        public IEnumerable<Transaction> GetAll()
+        public async Task<int> Delete(int id)
         {
-            throw new NotImplementedException();
+            using var context = new MyDbContext();
+            //Transaction transactionToRemove = await context.Transactions.SingleOrDefaultAsync<Transaction>(t => t.Id == id);
+            Transaction transactionToRemove = await this.GetById(id);
+
+            int lineAffected = 0;
+
+            if (transactionToRemove != null)
+            {
+                context.Transactions.Remove(transactionToRemove);
+                lineAffected = await context.SaveChangesAsync();
+            }
+
+            return lineAffected;
         }
 
-        public Transaction GetById(int id)
+        public async Task<List<Transaction>> GetAll()
         {
-            throw new NotImplementedException();
+            using var context = new MyDbContext();
+            List<Transaction> transactions = await context.Transactions.ToListAsync<Transaction>();
+            return transactions;
         }
 
-        public void Update(Transaction entity)
+        public async Task<int> Update(Transaction entity)
         {
             throw new NotImplementedException();
         }
