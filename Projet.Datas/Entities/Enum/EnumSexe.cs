@@ -1,7 +1,9 @@
 ﻿namespace Projet.Datas.Entities.Interfaces
 {
-    public interface EnumSexe
+    public enum EnumSexe
     {
-        string Sexe { get; set; }
-    }
+        Male,
+        Female,
+		Other
+	}
 }

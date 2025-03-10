@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Projet.Datas.Entities
 {
@@ -8,9 +9,11 @@ namespace Projet.Datas.Entities
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
+
+		[MaxLength(50)]
 		public string Name { get; set; }
 		public string Label { get; set; }
-		public string AdditionalInfo { get; set; }
+		public string? AdditionalInfo { get; set; }
 		public string PostalCode { get; set; }
 		public string City { get; set; }
 		public string Email { get; set; }
@@ -19,5 +22,5 @@ namespace Projet.Datas.Entities
 		public string FullAddress => $"{Label} {AdditionalInfo}, {PostalCode} {City}";
 
 		public List<Account> Accounts { get; set; }
-}
+	}
 }
