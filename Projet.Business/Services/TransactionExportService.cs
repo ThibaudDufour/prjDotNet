@@ -47,7 +47,14 @@ namespace Projet.Business.Services
 								  transaction.Amount
 			}).ToList();
 
-			string json = JsonSerializer.Serialize(transactionsDto, new JsonSerializerOptions { WriteIndented = true });
+			string json = JsonSerializer.Serialize(transactionsToExport, new JsonSerializerOptions { WriteIndented = true });
+
+			string directoryPath = Path.GetDirectoryName(_exportPath);
+			if (!Directory.Exists(directoryPath))
+			{
+				Directory.CreateDirectory(directoryPath);
+			}
+
 			await File.WriteAllTextAsync(_exportPath, json);
 		}
 	}
