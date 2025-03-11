@@ -14,7 +14,9 @@ namespace Projet.Datas
 		public DbSet<PrivateCustomer> PrivateCustomers { get; set; }
 		public DbSet<Transaction> Transactions { get; set; }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		public DbSet<LoginUser> LoginUsers { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = dbProjetHN; Integrated Security = True; Connect Timeout = 30; Encrypt = False; Trust Server Certificate = False; Application Intent = ReadWrite; Multi Subnet Failover = False");
 		}
@@ -259,6 +261,13 @@ namespace Projet.Datas
 					new Anomaly { Id = 11, CardNumber = "4974018502231235", Amount = 500.00, TransactionType = EnumTransactionType.CashWithdrawal, TransactionDate = new DateTime(2023, 5, 10), Currency = EnumCurrency.EUR, BankAccountNumber = a8.AccountNumber },
 					new Anomaly { Id = 12, CardNumber = "4974018502235679", Amount = 200.75, TransactionType = EnumTransactionType.CashDeposit, TransactionDate = new DateTime(2023, 6, 15), Currency = EnumCurrency.USD, BankAccountNumber = a5.AccountNumber }
 				);
-		}
+
+            modelBuilder.Entity<LoginUser>()
+                .HasData(
+                    new LoginUser { Id = 1, Name = "BETY", Email = "bety@gmail.com", PasswordHash = "$10$N1Cdh3fzVyCK2uocu.eZL.ORhH3nDZ3/KIsjtUgGOH285.YrCyI5u" },
+                    new LoginUser { Id = 2, Name = "AXA", Email = "info@axa.fr", PasswordHash = "$10$jm2roECdgx9lLpehMRm42ulOy47spo7Z9FGGfNuqCqe92ZvdRGxxu" }
+                );
+
+        }
 	}
 }
