@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projet.Datas", "Projet.Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projet.Luhn", "Projet.Luhn\Projet.Luhn.csproj", "{DFFA8F0D-4FF8-45FE-BF1B-37CF018461BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projet.TestLuhn", "Projet.TestLuhn\Projet.TestLuhn.csproj", "{00770896-DE31-47DA-B8CC-E3449FF38EB4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projet.Business", "Projet.Business\Projet.Business.csproj", "{0F50A913-B5D8-4599-A3C0-404C452706B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projet.ExportVerifiedTransactions", "Projet.ExportVerifiedTransactions\Projet.ExportVerifiedTransactions.csproj", "{F86EACB4-435D-4CFB-B8E9-FDDB09001611}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projet.Login", "Projet.Login\Projet.Login.csproj", "{F66DC7D8-8203-475C-915F-785EE11614B5}"
 EndProject
@@ -31,6 +31,10 @@ Global
 		{0F50A913-B5D8-4599-A3C0-404C452706B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F50A913-B5D8-4599-A3C0-404C452706B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F50A913-B5D8-4599-A3C0-404C452706B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F86EACB4-435D-4CFB-B8E9-FDDB09001611}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F86EACB4-435D-4CFB-B8E9-FDDB09001611}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F86EACB4-435D-4CFB-B8E9-FDDB09001611}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F86EACB4-435D-4CFB-B8E9-FDDB09001611}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F66DC7D8-8203-475C-915F-785EE11614B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F66DC7D8-8203-475C-915F-785EE11614B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F66DC7D8-8203-475C-915F-785EE11614B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
