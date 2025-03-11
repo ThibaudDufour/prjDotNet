@@ -1,15 +1,9 @@
-﻿using Projet.Datas.Entities;
-using Projet.Datas.Entities.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using Projet.Datas.Entities.Interfaces;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Projet.Business
 {
-    class TransactionDto
+    public class TransactionDto
     {
         public int Id { get; set; }
 
@@ -26,7 +20,7 @@ namespace Projet.Business
         public EnumTransactionType TransactionType { get; set; }
 
         public DateTime TransactionDate { get; set; }
-        public string Currency { get; set; }
+        public EnumCurrency Currency { get; set; }
         public int BankAccountId { get; set; }
 
         public AccountDto BankAccount { get; set; }

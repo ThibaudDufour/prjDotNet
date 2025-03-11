@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Projet.Business
 {
-    class CustomerDto
+    public class CustomerDto
     {
         public int Id { get; set; }
 
