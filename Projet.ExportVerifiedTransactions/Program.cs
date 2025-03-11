@@ -38,7 +38,13 @@ internal class Program
 		try
 		{
 			Console.WriteLine("Exportation des transactions vérifiées...");
-			await transactionExportService.ExportVerifiedTransaction();
+			bool success = await transactionExportService.ExportVerifiedTransaction();
+			if (!success)
+			{
+				Console.ForegroundColor = ConsoleColor.Yellow;
+				Console.WriteLine("Aucune transaction vérifiée à exporter.");
+				return;
+			}
 			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine("Exportation terminée avec succès.");
 			
@@ -51,7 +57,6 @@ internal class Program
 		finally
 		{
 			Console.ResetColor();
-			Console.WriteLine($"{Environment.NewLine}*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
 		}
 	}
 }
