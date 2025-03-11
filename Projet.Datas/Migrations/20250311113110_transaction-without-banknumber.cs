@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Projet.Datas.Migrations
 {
     /// <inheritdoc />
-    public partial class initDbWithDatas : Migration
+    public partial class transactionwithoutbanknumber : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,15 +58,14 @@ namespace Projet.Datas.Migrations
                     TransactionType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TransactionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Currency = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BankAccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BankAccountAccountNumber = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    AccountNumber = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Anomalies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Anomalies_Accounts_BankAccountAccountNumber",
-                        column: x => x.BankAccountAccountNumber,
+                        name: "FK_Anomalies_Accounts_AccountNumber",
+                        column: x => x.AccountNumber,
                         principalTable: "Accounts",
                         principalColumn: "AccountNumber");
                 });
@@ -81,15 +80,14 @@ namespace Projet.Datas.Migrations
                     TransactionType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TransactionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Currency = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BankAccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BankAccountAccountNumber = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    AccountNumber = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Transactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Transactions_Accounts_BankAccountAccountNumber",
-                        column: x => x.BankAccountAccountNumber,
+                        name: "FK_Transactions_Accounts_AccountNumber",
+                        column: x => x.AccountNumber,
                         principalTable: "Accounts",
                         principalColumn: "AccountNumber");
                 });
@@ -180,11 +178,11 @@ namespace Projet.Datas.Migrations
 
             migrationBuilder.InsertData(
                 table: "Anomalies",
-                columns: new[] { "Id", "Amount", "BankAccountAccountNumber", "BankAccountNumber", "CardNumber", "Currency", "TransactionDate", "TransactionType" },
+                columns: new[] { "Id", "AccountNumber", "Amount", "CardNumber", "Currency", "TransactionDate", "TransactionType" },
                 values: new object[,]
                 {
-                    { 11, 500.0, null, "FR660696569483", "4974018502231235", "EUR", new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashWithdrawal" },
-                    { 12, 200.75, null, "FR405166505325", "4974018502235679", "USD", new DateTime(2023, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashDeposit" }
+                    { 11, null, 500.0, "4974018502231235", "EUR", new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashWithdrawal" },
+                    { 12, null, 200.75, "4974018502235679", "USD", new DateTime(2023, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashDeposit" }
                 });
 
             migrationBuilder.InsertData(
@@ -207,19 +205,19 @@ namespace Projet.Datas.Migrations
 
             migrationBuilder.InsertData(
                 table: "Transactions",
-                columns: new[] { "Id", "Amount", "BankAccountAccountNumber", "BankAccountNumber", "CardNumber", "Currency", "TransactionDate", "TransactionType" },
+                columns: new[] { "Id", "AccountNumber", "Amount", "CardNumber", "Currency", "TransactionDate", "TransactionType" },
                 values: new object[,]
                 {
-                    { 1, 150.75, null, "FR294067299996", "4974018502231456", "EUR", new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashDeposit" },
-                    { 2, 75.5, null, "FR310186823810", "4974018502232783", "USD", new DateTime(2023, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashWithdrawal" },
-                    { 3, 220.0, null, "FR331826409376", "4974018502233920", "EUR", new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "CardPayment" },
-                    { 4, 50.0, null, "FR371412253044", "4974018502234671", "GBP", new DateTime(2023, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashDeposit" },
-                    { 5, 300.0, null, "FR405166505325", "4974018502235218", "EUR", new DateTime(2023, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashWithdrawal" },
-                    { 6, 125.25, null, "FR592259348790", "4974018502236345", "USD", new DateTime(2023, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "CardPayment" },
-                    { 7, 400.0, null, "FR643394271755", "4974018502237422", "EUR", new DateTime(2023, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashDeposit" },
-                    { 8, 20.0, null, "FR660696569483", "4974018502238539", "GBP", new DateTime(2023, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashWithdrawal" },
-                    { 9, 180.75, null, "FR859315945305", "4974018502239656", "EUR", new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "CardPayment" },
-                    { 10, 99.989999999999995, null, "FR960338827440", "4974018502230782", "USD", new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashDeposit" }
+                    { 1, null, 150.75, "4974018502231456", "EUR", new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashDeposit" },
+                    { 2, null, 75.5, "4974018502232783", "USD", new DateTime(2023, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashWithdrawal" },
+                    { 3, null, 220.0, "4974018502233920", "EUR", new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "CardPayment" },
+                    { 4, null, 50.0, "4974018502234671", "GBP", new DateTime(2023, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashDeposit" },
+                    { 5, null, 300.0, "4974018502235218", "EUR", new DateTime(2023, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashWithdrawal" },
+                    { 6, null, 125.25, "4974018502236345", "USD", new DateTime(2023, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "CardPayment" },
+                    { 7, null, 400.0, "4974018502237422", "EUR", new DateTime(2023, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashDeposit" },
+                    { 8, null, 20.0, "4974018502238539", "GBP", new DateTime(2023, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashWithdrawal" },
+                    { 9, null, 180.75, "4974018502239656", "EUR", new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "CardPayment" },
+                    { 10, null, 99.989999999999995, "4974018502230782", "USD", new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashDeposit" }
                 });
 
             migrationBuilder.InsertData(
@@ -271,14 +269,14 @@ namespace Projet.Datas.Migrations
                 column: "AccountsAccountNumber");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Anomalies_BankAccountAccountNumber",
+                name: "IX_Anomalies_AccountNumber",
                 table: "Anomalies",
-                column: "BankAccountAccountNumber");
+                column: "AccountNumber");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_BankAccountAccountNumber",
+                name: "IX_Transactions_AccountNumber",
                 table: "Transactions",
-                column: "BankAccountAccountNumber");
+                column: "AccountNumber");
         }
 
         /// <inheritdoc />

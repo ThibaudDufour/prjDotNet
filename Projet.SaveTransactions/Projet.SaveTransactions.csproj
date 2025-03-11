@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Projet.Business\Projet.Business.csproj" />
+    <ProjectReference Include="..\Projet.Datas\Projet.Datas.csproj" />
+    <ProjectReference Include="..\Projet.Luhn\Projet.Luhn.csproj" />
+  </ItemGroup>
+	
+    <ItemGroup>
+	    <None Update="transactions.json">
+		    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    </None>
+    </ItemGroup>
+
+</Project>

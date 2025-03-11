@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projet.Business
 {
-    class AnomalyDto : TransactionDto
+    public class AnomalyDto : TransactionDto
     {
     }
 }

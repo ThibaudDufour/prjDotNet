@@ -12,8 +12,8 @@ using Projet.Datas;
 namespace Projet.Datas.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20250310152720_initDbWithDatas")]
-    partial class initDbWithDatas
+    [Migration("20250311113110_transaction-without-banknumber")]
+    partial class transactionwithoutbanknumber
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -238,15 +238,11 @@ namespace Projet.Datas.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseSequence(b.Property<int>("Id"));
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.Property<string>("BankAccountAccountNumber")
+                    b.Property<string>("AccountNumber")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("BankAccountNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
 
                     b.Property<string>("CardNumber")
                         .IsRequired()
@@ -265,7 +261,7 @@ namespace Projet.Datas.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BankAccountAccountNumber");
+                    b.HasIndex("AccountNumber");
 
                     b.ToTable("Transactions", (string)null);
 
@@ -276,7 +272,6 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 1,
                             Amount = 150.75,
-                            BankAccountNumber = "FR294067299996",
                             CardNumber = "4974018502231456",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -286,7 +281,6 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 2,
                             Amount = 75.5,
-                            BankAccountNumber = "FR310186823810",
                             CardNumber = "4974018502232783",
                             Currency = "USD",
                             TransactionDate = new DateTime(2023, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -296,7 +290,6 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 3,
                             Amount = 220.0,
-                            BankAccountNumber = "FR331826409376",
                             CardNumber = "4974018502233920",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -306,7 +299,6 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 4,
                             Amount = 50.0,
-                            BankAccountNumber = "FR371412253044",
                             CardNumber = "4974018502234671",
                             Currency = "GBP",
                             TransactionDate = new DateTime(2023, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -316,7 +308,6 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 5,
                             Amount = 300.0,
-                            BankAccountNumber = "FR405166505325",
                             CardNumber = "4974018502235218",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2023, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -326,7 +317,6 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 6,
                             Amount = 125.25,
-                            BankAccountNumber = "FR592259348790",
                             CardNumber = "4974018502236345",
                             Currency = "USD",
                             TransactionDate = new DateTime(2023, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -336,7 +326,6 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 7,
                             Amount = 400.0,
-                            BankAccountNumber = "FR643394271755",
                             CardNumber = "4974018502237422",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2023, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -346,7 +335,6 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 8,
                             Amount = 20.0,
-                            BankAccountNumber = "FR660696569483",
                             CardNumber = "4974018502238539",
                             Currency = "GBP",
                             TransactionDate = new DateTime(2023, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -356,7 +344,6 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 9,
                             Amount = 180.75,
-                            BankAccountNumber = "FR859315945305",
                             CardNumber = "4974018502239656",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -366,7 +353,6 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 10,
                             Amount = 99.989999999999995,
-                            BankAccountNumber = "FR960338827440",
                             CardNumber = "4974018502230782",
                             Currency = "USD",
                             TransactionDate = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -588,7 +574,6 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 11,
                             Amount = 500.0,
-                            BankAccountNumber = "FR660696569483",
                             CardNumber = "4974018502231235",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -598,7 +583,6 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 12,
                             Amount = 200.75,
-                            BankAccountNumber = "FR405166505325",
                             CardNumber = "4974018502235679",
                             Currency = "USD",
                             TransactionDate = new DateTime(2023, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -623,11 +607,9 @@ namespace Projet.Datas.Migrations
 
             modelBuilder.Entity("Projet.Datas.Entities.Transaction", b =>
                 {
-                    b.HasOne("Projet.Datas.Entities.Account", "BankAccount")
+                    b.HasOne("Projet.Datas.Entities.Account", null)
                         .WithMany("Transactions")
-                        .HasForeignKey("BankAccountAccountNumber");
-
-                    b.Navigation("BankAccount");
+                        .HasForeignKey("AccountNumber");
                 });
 
             modelBuilder.Entity("Projet.Datas.Entities.BusinessCustomer", b =>

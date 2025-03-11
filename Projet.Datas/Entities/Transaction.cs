@@ -20,7 +20,7 @@ namespace Projet.Datas.Entities
 
         public EnumCurrency Currency { get; set; }
 
-		public string BankAccountNumber { get; set; }
-		public Account BankAccount { get; set; }
+		//public string BankAccountNumber { get; set; }
+		//public Account BankAccount { get; set; }
 	}
 }

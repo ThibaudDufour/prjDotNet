@@ -1,0 +1,30 @@
+[
+  {
+    "type": "ATM",
+    "cardNumber": "4974018502231456",
+    "amount": 100,
+    "date": "2025-03-11T10:30:21",
+    "currency": "EUR"
+  },
+  {
+    "type": "POS",
+    "cardNumber": "4974018502235218",
+    "amount": 12.85,
+    "date": "2025-03-11T11:50:45",
+    "currency": "USD"
+  },
+  {
+    "type": "CASH DEP",
+    "cardNumber": "4974018502230782",
+    "amount": 250,
+    "date": "2025-03-11T16:02:17",
+    "currency": "CNY"
+  },
+  {
+    "type": "CASH DEP",
+    "cardNumber": "4974018502231235",
+    "amount": 1000,
+    "date": "2025-03-11T16:23:12",
+    "currency": "GBP"
+  }
+]
