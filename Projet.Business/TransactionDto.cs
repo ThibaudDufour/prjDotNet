@@ -29,6 +29,6 @@ namespace Projet.Business
         public string Currency { get; set; }
         public int BankAccountId { get; set; }
 
-        public Account BankAccount { get; set; }
+        public AccountDto BankAccount { get; set; }
     }
 }
