@@ -45,12 +45,12 @@ namespace Projet.Business.Services
 				TransactionDate = transaction.TransactionDate.ToString("g"),
 				transaction.Currency,
 
-				ExchangeRate = transaction.Currency != EnumCurrency.EUR.ToString() ?
-								 exchangesRates.GetValueOrDefault(transaction.Currency, 1) :
+				ExchangeRate = transaction.Currency != EnumCurrency.EUR ?
+								 exchangesRates.GetValueOrDefault(transaction.Currency.ToString(), 1) :
 								 1,
 
-				ConvertedAmount = transaction.Currency != EnumCurrency.EUR.ToString() ?
-								 transaction.Amount * exchangesRates.GetValueOrDefault(transaction.Currency, 1) :
+				ConvertedAmount = transaction.Currency != EnumCurrency.EUR ?
+								 transaction.Amount * exchangesRates.GetValueOrDefault(transaction.Currency.ToString(), 1) :
 								 transaction.Amount
 			}).ToList();
 
