@@ -1,7 +1,4 @@
-﻿using Projet.Datas.Entities;
-using Projet.Datas.Entities.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using Projet.Datas.Entities.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;

@@ -22,7 +22,16 @@ namespace Projet.Datas.Repositories
             context.Database.EnsureCreated();
         }
 
-        public async Task<int> Add(Transaction transEntity)
+        public async Task<List<Transaction>> GetTransactionsByAccountAndPeriod(string accountNumber, DateTime startDate, DateTime endDate)
+        {
+			using var context = new MyDbContext();
+			return await context.Transactions
+				.Where(t => t.BankAccountNumber == accountNumber && t.TransactionDate >= startDate && t.TransactionDate <= endDate)
+				.ToListAsync<Transaction>();
+
+		}
+
+		public async Task<int> Add(Transaction transEntity)
         {
             using var context = new MyDbContext();
             context.Transactions.Add(transEntity);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Projet.Business
 {
-    class BusinessCustomerDto
+    public class BusinessCustomerDto
     {
         [Required]
         [RegularExpression(@"^\d{14}$", ErrorMessage = "Le SIRET doit contenir exactement 14 chiffres.")]
