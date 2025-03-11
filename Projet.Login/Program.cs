@@ -1,57 +1,76 @@
-﻿using Projet.Datas.Entities;
-using System;
+﻿using Projet.Business.Auth;
+using Projet.Controllers;
+using Recap.Views;
+using System.Threading.Tasks;
 
 class Program
 {
-    static void Main()
+    private static async Task Main()
     {
-        Auth authService = new Auth();
+        LoginView loginView = new LoginView();
+        LoginController loginController = new LoginController(loginView);
+
+		while (true)
+        {
+			loginView.ShowMenu();
+			Console.Write("Votre choix : ");
+			string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    bool isAuthenticated = await loginController.Login();
+                    if (isAuthenticated)
+                    {
+                        await ShowMainMenu(loginView);
+					}
+					break;
+
+				case "2":
+					await loginController.Register();
+					break;
+
+				case "0":
+                    loginView.ShowGoodbyeMessage();
+					return;
+
+                default:
+                    loginView.ShowInvalidChoice();
+					break;
+            }
+        }
+    }
+
+    private static async Task ShowMainMenu(LoginView loginView)
+    {
+        RapportView rapportView = new RapportView();
+        RapportController rapportController = new RapportController(rapportView);
 
         while (true)
         {
-            Console.WriteLine("Menu Authentification :");
-            Console.WriteLine("1️-Inscription");
-            Console.WriteLine("2️-Connexion");
-            Console.WriteLine("3️-Quitter");
+            Console.WriteLine("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
+            Console.WriteLine("Menu principal");
+            Console.WriteLine("1. Générer un rapport");
+            Console.WriteLine("");
+            Console.WriteLine("0. Déconnexion");
+            Console.WriteLine("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
+            Console.Write("Votre choix : ");
             string choice = Console.ReadLine();
 
             switch (choice)
             {
                 case "1":
-                    Console.Write("\nNom : ");
-                    string name = Console.ReadLine();
-
-                    Console.Write("Email : ");
-                    string email = Console.ReadLine();
-
-                    Console.Write("Mot de passe : ");
-                    string password = Console.ReadLine();
-
-                    authService.Register(name, email, password);
+                    await rapportController.GenerateExport();
                     break;
 
-                case "2":
-                    Console.Write("\nEmail : ");
-                    string loginEmail = Console.ReadLine();
-
-                    Console.Write("Mot de passe : ");
-                    string loginPassword = Console.ReadLine();
-
-                    if (authService.Login(loginEmail, loginPassword))
-                    {
-                        Console.WriteLine("\nAccès validé !");
-                        return;
-                    }
-                    break;
-
-                case "3":
-                    Console.WriteLine("Au revoir !");
+                case "0":
+                    loginView.ShowGoodbyeMessage();
                     return;
 
-                default:
-                    Console.WriteLine("Choix invalide !");
+				default:
+                    loginView.ShowInvalidChoice(); 
                     break;
-            }
+			}
         }
     }
 }

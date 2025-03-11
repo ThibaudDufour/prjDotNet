@@ -21,8 +21,5 @@ namespace Projet.Business
 
         public DateTime TransactionDate { get; set; }
         public EnumCurrency Currency { get; set; }
-        public int BankAccountId { get; set; }
-
-        public AccountDto BankAccount { get; set; }
     }
 }
