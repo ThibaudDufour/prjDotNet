@@ -15,9 +15,15 @@ internal class Program
 
         TransactionFolder.ClearFolders();
 
-        TransactionFolder.CreateFile();
+        await TransactionFolder.CreateFile();
 
         await TransactionFolder.ProcessFiles();
 
+        Console.WriteLine("Serveur Running...");
+
+        var createFilesTask = TransactionFolder.CreateFilesAsync();
+        var processFilesTask = TransactionFolder.ProcessFilesAsync();
+
+        await Task.WhenAll(createFilesTask,processFilesTask);
     }
 }

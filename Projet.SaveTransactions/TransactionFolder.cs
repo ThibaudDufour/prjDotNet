@@ -58,11 +58,11 @@ namespace Projet.SaveTransactions
             }
         }
 
-        public static void CreateFile()
+        public static async Task CreateFile()
         {
             
             TransactionFile file = new TransactionFile();
-            file.Create();
+            await file.Create();
             Console.WriteLine("New transaction file created");
         }
 
@@ -126,6 +126,26 @@ namespace Projet.SaveTransactions
 
                 string destination = transfile.Replace(folderPath, logFolderPath);
                 File.Move(transfile, destination);
+            }
+        }
+
+        public static async Task CreateFilesAsync()
+        {
+            while (true)
+            {
+                await Task.Delay(10000);
+
+                await CreateFile();
+            }
+        }
+
+        public static async Task ProcessFilesAsync()
+        {
+            while (true)
+            {
+                await Task.Delay(30000);
+
+                await ProcessFiles();
             }
         }
     }

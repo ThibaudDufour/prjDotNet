@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Projet.Datas.Migrations
 {
     /// <inheritdoc />
-    public partial class initDb : Migration
+    public partial class remakedb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -214,7 +214,7 @@ namespace Projet.Datas.Migrations
                 columns: new[] { "Id", "AccountNumber", "Amount", "CardNumber", "Currency", "TransactionDate", "TransactionType" },
                 values: new object[,]
                 {
-                    { 11, null, 500.0, "4974018502231235", "EUR", new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashWithdrawal" },
+                    { 11, null, 500.0, "4974018502231299", "EUR", new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashWithdrawal" },
                     { 12, null, 200.75, "4974018502235679", "USD", new DateTime(2023, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashDeposit" }
                 });
 

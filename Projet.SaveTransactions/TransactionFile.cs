@@ -3,6 +3,7 @@ using System.Text;
 using Projet.Luhn;
 using Projet.Datas.Entities.Interfaces;
 using System.Text.Json;
+using Projet.Business.Services;
 
 namespace Projet.SaveTransactions
 {
@@ -12,10 +13,22 @@ namespace Projet.SaveTransactions
 
         private string content;
 
+        private BankCardService bankCardService = new BankCardService();
+
         public string Adress {
             get {
                 return adress;
             }
+        }
+
+        public TransactionFile()
+        {
+            CreatePath();
+        }
+
+        private async Task<List<string>> GetCardNumbersFromBase()
+        {
+            return await bankCardService.GetAllCardsNumber();
         }
 
         private void CreatePath()
@@ -27,16 +40,23 @@ namespace Projet.SaveTransactions
             adress = "./transactions/transactions_" + endPath + ".json";
         }
 
-        private void CreateContent()
+        private async Task CreateContent()
         {
             List<TransactionDto> transList = new List<TransactionDto>();
             var rand = new Random();
-
-            // Namespace not recognized for some reason
+            List<string> cardNumbersFromBase = await GetCardNumbersFromBase();
 
             for (var i = 0; i < 10; i++)
             {
-                string cardNumber = rand.Next(10) == 1 ? Luhn.Luhn.CreateInvalidCardNumber() : Luhn.Luhn.CreateValidCardNumber();
+                string cardNumber; 
+                if ( rand.Next(1,4) == 1)
+                {
+                    cardNumber = rand.Next(5) == 1 ? Luhn.Luhn.CreateInvalidCardNumber() : Luhn.Luhn.CreateValidCardNumber();
+                }
+                else
+                {
+                    cardNumber = cardNumbersFromBase[rand.Next(0, cardNumbersFromBase.Count - 1)];
+                }
 
                 double amount;
                 EnumTransactionType type;
@@ -85,15 +105,10 @@ namespace Projet.SaveTransactions
             content = JsonSerializer.Serialize<List<TransactionDto>>(transList);
         }
 
-        public TransactionFile()
+        public async Task Create()
         {
-            CreatePath();
-            CreateContent();
-            //Content = "[\r\n  {\r\n    \"type\": \"ATM\",\r\n    \"cardNumber\": \"4974018502231456\",\r\n    \"amount\": 100,\r\n    \"date\": \"2025-03-11T10:30:21\",\r\n    \"currency\": \"EUR\"\r\n  },\r\n  {\r\n    \"type\": \"POS\",\r\n    \"cardNumber\": \"4974018502235218\",\r\n    \"amount\": 12.85,\r\n    \"date\": \"2025-03-11T11:50:45\",\r\n    \"currency\": \"USD\"\r\n  },\r\n  {\r\n    \"type\": \"CASH DEP\",\r\n    \"cardNumber\": \"4974018502230782\",\r\n    \"amount\": 250,\r\n    \"date\": \"2025-03-11T16:02:17\",\r\n    \"currency\": \"CNY\"\r\n  },\r\n  {\r\n    \"type\": \"CASH DEP\",\r\n    \"cardNumber\": \"4974018502231235\",\r\n    \"amount\": 1000,\r\n    \"date\": \"2025-03-11T16:23:12\",\r\n    \"currency\": \"GBP\"\r\n  }\r\n]";
-        }
+            await CreateContent();
 
-        public void Create()
-        {
             try
             {
                 using (FileStream fs = File.Create(Path.GetFullPath(adress)))
