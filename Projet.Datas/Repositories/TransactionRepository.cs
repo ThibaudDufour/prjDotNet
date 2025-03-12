@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Projet.Datas.Entities;
 using Projet.Datas;
 using System.Numerics;
+using Projet.Datas.Entities.Interfaces;
 
 namespace Projet.Datas.Repositories
 {
@@ -47,7 +48,54 @@ namespace Projet.Datas.Repositories
 				.ToListAsync<Transaction>();
 		}
 
-		public async Task<int> Add(Transaction transEntity)
+        public async Task<List<Transaction>> GetTransactionsHistoric(string accountNumber)
+        {
+            using var context = new MyDbContext();
+
+
+            // Récupérer les cartes associées au compte donné
+            var cardNumbers = await context.BankCards
+                .Where(c => c.AccountNumber == accountNumber.ToUpper())
+                .Select(c => c.CardNumber)
+                .ToListAsync();
+
+            if (!cardNumbers.Any())
+            {
+                return new List<Transaction>(); // Aucun numéro de carte associé au compte
+            }
+
+            return await context.Transactions
+                .Where(t =>
+                    cardNumbers.Contains(t.CardNumber)
+                )
+                .ToListAsync<Transaction>();
+        }
+
+        public async Task<List<Transaction>> GetTransactionsHistoricByType(string accountNumber, EnumTransactionType transactionType)
+        {
+            using var context = new MyDbContext();
+
+
+            // Récupérer les cartes associées au compte donné
+            var cardNumbers = await context.BankCards
+                .Where(c => c.AccountNumber == accountNumber.ToUpper())
+                .Select(c => c.CardNumber)
+                .ToListAsync();
+
+            if (!cardNumbers.Any())
+            {
+                return new List<Transaction>(); // Aucun numéro de carte associé au compte
+            }
+
+            return await context.Transactions
+                .Where(t =>
+                    cardNumbers.Contains(t.CardNumber) && t.TransactionType == transactionType
+                )
+                .ToListAsync<Transaction>();
+        }
+
+
+        public async Task<int> Add(Transaction transEntity)
         {
             using var context = new MyDbContext();
             context.Transactions.Add(transEntity);
