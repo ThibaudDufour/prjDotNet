@@ -9,12 +9,12 @@ namespace Projet.Business.Mapping
         {
             CreateMap<Anomaly, AnomalyDto>().ReverseMap();
             CreateMap<Account, AccountDto>().ReverseMap();
-            CreateMap<BusinessCustomer, BusinessCustomerDto>().ReverseMap();
+			CreateMap<BankCard, BankCardDto>().ReverseMap();
+			CreateMap<BusinessCustomer, BusinessCustomerDto>().ReverseMap();
             CreateMap<Customer, CustomerDto>().ReverseMap();
-            CreateMap<PrivateCustomer, PrivateCustomerDto>().ReverseMap();
+			CreateMap<LoginUser, LoginUserDto>().ReverseMap();
+			CreateMap<PrivateCustomer, PrivateCustomerDto>().ReverseMap();
             CreateMap<Transaction, TransactionDto>().ReverseMap();
         }
-
-
     }
 }

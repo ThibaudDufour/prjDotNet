@@ -13,7 +13,6 @@ namespace Projet.Datas.Entities
     {
         public int Id { get; set; }
 
-
         [Required]
         public  string Name { get; set; }
 
@@ -23,15 +22,5 @@ namespace Projet.Datas.Entities
 
         [Required]
         public string PasswordHash { get; set; }
-
-        public void SetPassword(string password)
-        {
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(password);
-        }
-
-        public bool VerifyPassword(string password)
-        {
-            return BCrypt.Net.BCrypt.Verify(password, PasswordHash);
-        }
     }
 }

@@ -9,11 +9,11 @@ namespace Projet.Datas
 	{
 		public DbSet<Account> Accounts { get; set; }
 		public DbSet<Anomaly> Anomalies { get; set; }
+		public DbSet<BankCard> BankCards { get; set; }
 		public DbSet<BusinessCustomer> BusinessCustomers { get; set; }
 		public DbSet<Customer> Customers { get; set; }
 		public DbSet<PrivateCustomer> PrivateCustomers { get; set; }
 		public DbSet<Transaction> Transactions { get; set; }
-
 		public DbSet<LoginUser> LoginUsers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -23,6 +23,9 @@ namespace Projet.Datas
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			modelBuilder.Entity<BankCard>()
+				.HasKey(bc => new { bc.CardNumber, bc.AccountNumber });
+
 			modelBuilder.Entity<Account>()
 				.HasMany(a => a.Owners)
 				.WithMany(c => c.Accounts)
@@ -242,10 +245,23 @@ namespace Projet.Datas
 					new { AccountsAccountNumber = a10.AccountNumber, OwnersId = 10 }
 				);
 
+			modelBuilder.Entity<BankCard>().HasData(
+				new BankCard { CardNumber = "4974018502231235", AccountNumber = "FR294067299996" },
+				new BankCard { CardNumber = "4974018502238270", AccountNumber = "FR310186823810" },
+				new BankCard { CardNumber = "4974018502239788", AccountNumber = "FR331826409376" },
+				new BankCard { CardNumber = "4974018502239585", AccountNumber = "FR371412253044" },
+				new BankCard { CardNumber = "4974018502237529", AccountNumber = "FR405166505325" },
+				new BankCard { CardNumber = "4974018502230410", AccountNumber = "FR592259348790" },
+				new BankCard { CardNumber = "4974018502231297", AccountNumber = "FR643394271755" },
+				new BankCard { CardNumber = "4974018502230778", AccountNumber = "FR660696569483" },
+				new BankCard { CardNumber = "4974018502233220", AccountNumber = "FR294067299996" },
+				new BankCard { CardNumber = "4974018502230660", AccountNumber = "FR960338827440" }
+			);
+
 			modelBuilder.Entity<Transaction>()
 				.HasData(
-					new Transaction { Id = 1, CardNumber = "4974018502231456", Amount = 150.75, TransactionType = EnumTransactionType.CashDeposit, TransactionDate = new DateTime(2023, 5, 10), Currency = EnumCurrency.EUR },
-					new Transaction { Id = 2, CardNumber = "4974018502232783", Amount = 75.50, TransactionType = EnumTransactionType.CashWithdrawal, TransactionDate = new DateTime(2023, 6, 15), Currency = EnumCurrency.USD },
+					new Transaction { Id = 1, CardNumber = "4974018502231235", Amount = 150.75, TransactionType = EnumTransactionType.CashDeposit, TransactionDate = new DateTime(2023, 5, 10), Currency = EnumCurrency.EUR },
+					new Transaction { Id = 2, CardNumber = "4974018502238270", Amount = 75.50, TransactionType = EnumTransactionType.CashWithdrawal, TransactionDate = new DateTime(2023, 6, 15), Currency = EnumCurrency.USD },
 					new Transaction { Id = 3, CardNumber = "4974018502233920", Amount = 220.00, TransactionType = EnumTransactionType.CardPayment, TransactionDate = new DateTime(2023, 7, 20), Currency = EnumCurrency.EUR },
 					new Transaction { Id = 4, CardNumber = "4974018502234671", Amount = 50.00, TransactionType = EnumTransactionType.CashDeposit, TransactionDate = new DateTime(2023, 8, 5), Currency = EnumCurrency.GBP },
 					new Transaction { Id = 5, CardNumber = "4974018502235218", Amount = 300.00, TransactionType = EnumTransactionType.CashWithdrawal, TransactionDate = new DateTime(2023, 9, 1), Currency = EnumCurrency.EUR },
@@ -258,7 +274,7 @@ namespace Projet.Datas
 
 			modelBuilder.Entity<Anomaly>()
 				.HasData(
-					new Anomaly { Id = 11, CardNumber = "4974018502231235", Amount = 500.00, TransactionType = EnumTransactionType.CashWithdrawal, TransactionDate = new DateTime(2023, 5, 10), Currency = EnumCurrency.EUR },
+					new Anomaly { Id = 11, CardNumber = "4974018502231299", Amount = 500.00, TransactionType = EnumTransactionType.CashWithdrawal, TransactionDate = new DateTime(2023, 5, 10), Currency = EnumCurrency.EUR },
 					new Anomaly { Id = 12, CardNumber = "4974018502235679", Amount = 200.75, TransactionType = EnumTransactionType.CashDeposit, TransactionDate = new DateTime(2023, 6, 15), Currency = EnumCurrency.USD }
 				);
 

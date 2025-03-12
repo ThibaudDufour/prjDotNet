@@ -8,8 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Projet.Business\Projet.Business.csproj" />
-    <ProjectReference Include="..\Projet.Datas\Projet.Datas.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Projet.Controllers\Projet.Controllers.csproj" />
+    <ProjectReference Include="..\Recap.Views\Recap.Views.csproj" />
   </ItemGroup>
 
 </Project>

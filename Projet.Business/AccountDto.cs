@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projet.Business
 {
-    class AccountDto
+    public class AccountDto
     {
         public string AccountNumber { get; set; }
         public DateTime OpeningDate { get; set; }
