@@ -20,7 +20,7 @@ namespace Projet.Datas.Repositories
 		{
 			using var context = new MyDbContext();
 			return await context.Accounts
-                .Include("Customers")
+                .Include(a => a.Owners) //test
                 .Include("Transactions")
 				.ToListAsync();
 		}
@@ -29,8 +29,8 @@ namespace Projet.Datas.Repositories
 		{
 			using var context = new MyDbContext();
 			return await context.Accounts
-				.Include("Customers")
-				.Include("Transactions")
+                .Include(a => a.Owners)
+                .Include("Transactions")
 				.Where(a => a.Owners.Any(o => o.Id == customerId))
 				.ToListAsync();
 		}
@@ -39,26 +39,26 @@ namespace Projet.Datas.Repositories
 		{
 			using var context = new MyDbContext();
 			return await context.Accounts
-				.Include("Customers")
-				.Include("Transactions")
+                .Include(a => a.Owners)
+                .Include("Transactions")
 				.FirstOrDefaultAsync(a => a.AccountNumber == accountNumber);
 		}
 
-		public Task<int> Add(Account entity)
+		public async Task<int> Add(Account entity)
 		{
 			using var context = new MyDbContext();
 			context.Accounts.Add(entity);
-			return context.SaveChangesAsync();
+			return await context.SaveChangesAsync();
 		}
 
-		public Task<int> Update(Account entity)
+		public async Task<int> Update(Account entity)
 		{
 			using var context = new MyDbContext();
-			context.Accounts.Update(entity);
-			return context.SaveChangesAsync();
+			context.Attach(entity).State = EntityState.Modified;
+			return await context.SaveChangesAsync();
 		}
 
-		public Task<int> Delete(string accountNumber)
+		public async Task<int> Delete(string accountNumber)
 		{
 			using var context = new MyDbContext();
 			var account = context.Accounts.FirstOrDefault(a => a.AccountNumber == accountNumber);
@@ -66,7 +66,7 @@ namespace Projet.Datas.Repositories
 			{
 				context.Accounts.Remove(account);
 			}
-			return context.SaveChangesAsync();
+			return await context.SaveChangesAsync();
 		}
 	}
 }
