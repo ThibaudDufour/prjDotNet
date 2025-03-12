@@ -1,7 +1,5 @@
-﻿using Projet.Business.Auth;
-using Projet.Controllers;
+﻿using Projet.Controllers;
 using Recap.Views;
-using System.Threading.Tasks;
 
 class Program
 {

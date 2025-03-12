@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Projet.Datas.Migrations
 {
     /// <inheritdoc />
-    public partial class transactionwithoutbanknumber : Migration
+    public partial class initDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -46,6 +46,21 @@ namespace Projet.Datas.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LoginUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LoginUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -204,6 +219,15 @@ namespace Projet.Datas.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "LoginUsers",
+                columns: new[] { "Id", "Email", "Name", "PasswordHash" },
+                values: new object[,]
+                {
+                    { 1, "bety@gmail.com", "BETY", "$10$N1Cdh3fzVyCK2uocu.eZL.ORhH3nDZ3/KIsjtUgGOH285.YrCyI5u" },
+                    { 2, "info@axa.fr", "AXA", "$10$jm2roECdgx9lLpehMRm42ulOy47spo7Z9FGGfNuqCqe92ZvdRGxxu" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Transactions",
                 columns: new[] { "Id", "AccountNumber", "Amount", "CardNumber", "Currency", "TransactionDate", "TransactionType" },
                 values: new object[,]
@@ -290,6 +314,9 @@ namespace Projet.Datas.Migrations
 
             migrationBuilder.DropTable(
                 name: "BusinessCustomers");
+
+            migrationBuilder.DropTable(
+                name: "LoginUsers");
 
             migrationBuilder.DropTable(
                 name: "PrivateCustomers");

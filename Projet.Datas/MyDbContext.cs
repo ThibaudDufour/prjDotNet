@@ -13,7 +13,6 @@ namespace Projet.Datas
 		public DbSet<Customer> Customers { get; set; }
 		public DbSet<PrivateCustomer> PrivateCustomers { get; set; }
 		public DbSet<Transaction> Transactions { get; set; }
-
 		public DbSet<LoginUser> LoginUsers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

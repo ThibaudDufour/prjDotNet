@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using Projet.Datas.Repositories
+using Projet.Datas.Entities;
+using Projet.Datas.Repositories;
 
 namespace Projet.Business.Services
 {

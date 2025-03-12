@@ -26,7 +26,7 @@ namespace Projet.Datas.Repositories
         {
 			using var context = new MyDbContext();
 			return await context.Transactions
-				.Where(t => t.BankAccountNumber == accountNumber && t.TransactionDate >= startDate && t.TransactionDate <= endDate)
+				.Where(t => t.TransactionDate >= startDate && t.TransactionDate <= endDate)
 				.ToListAsync<Transaction>();
 
 		}
