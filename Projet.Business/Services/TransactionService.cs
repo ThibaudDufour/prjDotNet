@@ -38,23 +38,13 @@ namespace Projet.Business.Services
 				.Select(t => new TransactionDto
 				{
 					Id = t.Id,
-					CardNumber = MaskCardNumber(t.CardNumber),
+					CardNumber = $"**** **** **** {t.CardNumber[^4..]}",
 					Amount = t.Amount,
 					TransactionType = t.TransactionType,
 					TransactionDate = t.TransactionDate,
 					Currency = t.Currency
 				})
 				.ToList<TransactionDto>();
-		}
-
-		/// <summary>
-		/// Masque les chiffres de la carte de crédit en gardant les 4 premiers et les 4 derniers chiffres
-		/// </summary>
-		/// <param name="cardNumber">Chiffre de la carte de crédit</param>
-		/// <returns>Numéro de carte masqué</returns>
-		private string MaskCardNumber(string cardNumber)
-		{
-			return cardNumber.Substring(0, 4) + "********" + cardNumber.Substring(12, 4);
 		}
 	}
 }

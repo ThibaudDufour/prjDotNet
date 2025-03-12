@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Projet.Datas.Entities;
 using Projet.Datas;
+using System.Numerics;
 
 namespace Projet.Datas.Repositories
 {
@@ -25,10 +26,26 @@ namespace Projet.Datas.Repositories
         public async Task<List<Transaction>> GetTransactionsByAccountAndPeriod(string accountNumber, DateTime startDate, DateTime endDate)
         {
 			using var context = new MyDbContext();
-			return await context.Transactions
-				.Where(t => t.TransactionDate >= startDate && t.TransactionDate <= endDate)
-				.ToListAsync<Transaction>();
 
+
+			// Récupérer les cartes associées au compte donné
+	        var cardNumbers = await context.BankCards
+		        .Where(c => c.AccountNumber == accountNumber.ToUpper())
+		        .Select(c => c.CardNumber)
+		        .ToListAsync();
+
+			if (!cardNumbers.Any())
+			{
+				return new List<Transaction>(); // Aucun numéro de carte associé au compte
+			}
+
+			return await context.Transactions
+				.Where(t =>
+				    cardNumbers.Contains(t.CardNumber) &&
+					t.TransactionDate >= startDate && 
+                    t.TransactionDate <= endDate
+                )
+				.ToListAsync<Transaction>();
 		}
 
 		public async Task<int> Add(Transaction transEntity)
