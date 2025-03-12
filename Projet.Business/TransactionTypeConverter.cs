@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Projet.Business
 {
-    class TransactionTypeConverter : JsonConverter<EnumTransactionType>
+    public class TransactionTypeConverter : JsonConverter<EnumTransactionType>
     {
         public override EnumTransactionType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

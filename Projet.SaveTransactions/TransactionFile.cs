@@ -15,6 +15,8 @@ namespace Projet.SaveTransactions
 
         private BankCardService bankCardService = new BankCardService();
 
+        private ExchangeRateService exchangeRateService = new ExchangeRateService();
+
         public string Adress {
             get {
                 return adress;
@@ -42,7 +44,7 @@ namespace Projet.SaveTransactions
 
         private async Task CreateContent()
         {
-            List<TransactionDto> transList = new List<TransactionDto>();
+            List<Transaction> transList = new List<Transaction>();
             var rand = new Random();
             List<string> cardNumbersFromBase = await GetCardNumbersFromBase();
 
@@ -90,19 +92,24 @@ namespace Projet.SaveTransactions
                         break;
                 }
 
-                TransactionDto transDto = new TransactionDto
+                Dictionary<string, double> dicExRate = await exchangeRateService.GetExchangeRate();
+                double rate;
+                dicExRate.TryGetValue(currency.ToString(), out rate);
+
+                Transaction trans = new Transaction
                 {
                     CardNumber = cardNumber,
                     Amount = amount,
                     TransactionType = type,
                     TransactionDate = DateTime.Now,
-                    Currency = currency
+                    Currency = currency,
+                    ExchangeRate = rate
                 };
 
-                transList.Add(transDto);
+                transList.Add(trans);
             }
 
-            content = JsonSerializer.Serialize<List<TransactionDto>>(transList);
+            content = JsonSerializer.Serialize<List<Transaction>>(transList);
         }
 
         public async Task Create()
