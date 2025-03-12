@@ -27,7 +27,6 @@ namespace Projet.Datas.Repositories
         {
 			using var context = new MyDbContext();
 
-
 			// Récupérer les cartes associées au compte donné
 	        var cardNumbers = await context.BankCards
 		        .Where(c => c.AccountNumber == accountNumber.ToUpper())

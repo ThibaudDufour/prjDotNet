@@ -40,18 +40,18 @@ namespace Projet.Business.Services
 			{
 				transaction.Id,
 				transaction.CardNumber,
-				transaction.Amount,
+				Amount = Math.Round(transaction.Amount, 2),
 				TransactionType = transaction.TransactionType.ToString(),
 				TransactionDate = transaction.TransactionDate.ToString("g"),
-				transaction.Currency,
+				Currency = transaction.Currency.ToString(),
 
 				ExchangeRate = transaction.Currency != EnumCurrency.EUR ?
-								 exchangesRates.GetValueOrDefault(transaction.Currency.ToString(), 1) :
-								 1,
+				   Math.Round(exchangesRates.GetValueOrDefault(transaction.Currency.ToString(), 1), 2) :
+				   1,
 
 				ConvertedAmount = transaction.Currency != EnumCurrency.EUR ?
-								 transaction.Amount * exchangesRates.GetValueOrDefault(transaction.Currency.ToString(), 1) :
-								 transaction.Amount
+					  Math.Round(transaction.Amount * exchangesRates.GetValueOrDefault(transaction.Currency.ToString(), 1), 2) :
+					  Math.Round(transaction.Amount, 2)
 			}).ToList();
 
 			// Sérialiser les transactions en JSON
