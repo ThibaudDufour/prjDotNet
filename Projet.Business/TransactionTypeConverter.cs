@@ -1,4 +1,5 @@
-﻿using Projet.Datas.Entities.Interfaces;
+﻿using Microsoft.Extensions.Primitives;
+using Projet.Datas.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,15 +30,25 @@ namespace Projet.Business
                     break;
                 default:
                     throw new JsonException($"Valeur {stringValue} non reconnue");
-                    break;
             }
 
             return enumValue;
         }
 
-        public override void Write(Utf8JsonWriter writer, EnumTransactionType value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, EnumTransactionType enumValue, JsonSerializerOptions options)
         {
-            throw new NotImplementedException();
+            switch (enumValue)
+            {
+                case EnumTransactionType.CashWithdrawal:
+                    writer.WriteStringValue("ATM");
+                    break;
+                case EnumTransactionType.CardPayment:
+                    writer.WriteStringValue("POS");
+                    break;
+                case EnumTransactionType.CashDeposit:
+                    writer.WriteStringValue("CASH DEP");
+                    break;
+            }
         }
     }
 }

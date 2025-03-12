@@ -12,6 +12,7 @@ namespace Projet.Business
 {
     public class TransactionDto
     {
+        [JsonIgnore]
         public int Id { get; set; }
 
         [Required]

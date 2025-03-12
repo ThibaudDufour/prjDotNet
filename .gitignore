@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Projet.TestLuhn
+/Projet.Test/Projet.Test.csproj
+/Projet.Test/Program.cs
