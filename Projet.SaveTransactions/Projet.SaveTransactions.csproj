@@ -11,11 +11,5 @@
     <ProjectReference Include="..\Projet.Business\Projet.Business.csproj" />
     <ProjectReference Include="..\Projet.Luhn\Projet.Luhn.csproj" />
   </ItemGroup>
-	
-    <ItemGroup>
-	    <None Update="transactions.json">
-		    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	    </None>
-    </ItemGroup>
 
 </Project>

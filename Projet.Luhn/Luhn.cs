@@ -45,5 +45,51 @@ namespace Projet.Luhn
             string regex = @"^\d+$";
             return Regex.IsMatch(CardNumber,regex);
         }
+
+        public static string CreateValidCardNumber()
+        {
+            string baseNum = "497401850223";
+            string cardNum;
+            var rand = new Random();
+
+            while (true) {
+                int[] tabInts = new int[4];
+
+                for (int i = 0; i < 4; i++)
+                {
+                    tabInts[i] = rand.Next(10);
+                }
+
+                if (IsValid(baseNum + string.Join("", tabInts)))
+                {
+                    return baseNum + string.Join("", tabInts);
+                }
+            }
+
+        }
+
+        public static string CreateInvalidCardNumber()
+        {
+            string baseNum = "497401850223";
+            string cardNum;
+            var rand = new Random();
+
+            while (true)
+            {
+                int[] tabInts = new int[4];
+
+                for (int i = 0; i < 4; i++)
+                {
+                    tabInts[i] = rand.Next(10);
+                }
+
+                if (!IsValid(baseNum + string.Join("", tabInts)))
+                {
+                    return baseNum + string.Join("", tabInts);
+                }
+            }
+
+        }
+
     }
 }

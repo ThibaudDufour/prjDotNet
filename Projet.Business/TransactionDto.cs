@@ -9,7 +9,8 @@ namespace Projet.Business
 {
     public class TransactionDto
     {
-        public int Id { get; init; }
+        [JsonIgnore]
+        public int Id { get; set; }
 
         [Required]
         [RegularExpression(@"^\d{16}$", ErrorMessage = "Le numéro de carte bancaire doit contenir exactement 16 chiffres.")]
