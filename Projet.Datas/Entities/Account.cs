@@ -21,13 +21,14 @@ namespace Projet.Datas.Entities
 			Balance += amount;
 		}
 
-		public void Withdraw(double amount)
+		public bool Withdraw(double amount)
 		{
 			if (Balance - amount < -Overdraft)
 			{
-				throw new InvalidOperationException("Insufficient balance");
+				return false;
 			}
 			Balance -= amount;
+			return true;
 		}
 
 		public static string GenerateAccountNumber()
