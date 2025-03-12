@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Projet.Datas;
 
@@ -11,9 +12,11 @@ using Projet.Datas;
 namespace Projet.Datas.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250312085118_initDb")]
+    partial class initDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -395,7 +398,7 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 3,
                             Amount = 220.0,
-                            CardNumber = "4974018502233220",
+                            CardNumber = "4974018502233920",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TransactionType = "CardPayment"
@@ -431,7 +434,7 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 7,
                             Amount = 400.0,
-                            CardNumber = "4974018502233220",
+                            CardNumber = "4974018502237422",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2023, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TransactionType = "CashDeposit"
@@ -679,7 +682,7 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 11,
                             Amount = 500.0,
-                            CardNumber = "4974018502231299",
+                            CardNumber = "4974018502231235",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TransactionType = "CashWithdrawal"

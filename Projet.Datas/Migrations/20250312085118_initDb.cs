@@ -86,6 +86,24 @@ namespace Projet.Datas.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BankCards",
+                columns: table => new
+                {
+                    CardNumber = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AccountNumber = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BankCards", x => new { x.CardNumber, x.AccountNumber });
+                    table.ForeignKey(
+                        name: "FK_BankCards_Accounts_AccountNumber",
+                        column: x => x.AccountNumber,
+                        principalTable: "Accounts",
+                        principalColumn: "AccountNumber",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Transactions",
                 columns: table => new
                 {
@@ -232,8 +250,8 @@ namespace Projet.Datas.Migrations
                 columns: new[] { "Id", "AccountNumber", "Amount", "CardNumber", "Currency", "TransactionDate", "TransactionType" },
                 values: new object[,]
                 {
-                    { 1, null, 150.75, "4974018502231456", "EUR", new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashDeposit" },
-                    { 2, null, 75.5, "4974018502232783", "USD", new DateTime(2023, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashWithdrawal" },
+                    { 1, null, 150.75, "4974018502231235", "EUR", new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashDeposit" },
+                    { 2, null, 75.5, "4974018502238270", "USD", new DateTime(2023, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashWithdrawal" },
                     { 3, null, 220.0, "4974018502233920", "EUR", new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "CardPayment" },
                     { 4, null, 50.0, "4974018502234671", "GBP", new DateTime(2023, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashDeposit" },
                     { 5, null, 300.0, "4974018502235218", "EUR", new DateTime(2023, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "CashWithdrawal" },
@@ -260,6 +278,23 @@ namespace Projet.Datas.Migrations
                     { "FR331826409376", 9 },
                     { "FR859315945305", 9 },
                     { "FR960338827440", 10 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "BankCards",
+                columns: new[] { "AccountNumber", "CardNumber" },
+                values: new object[,]
+                {
+                    { "FR592259348790", "4974018502230410" },
+                    { "FR960338827440", "4974018502230660" },
+                    { "FR660696569483", "4974018502230778" },
+                    { "FR294067299996", "4974018502231235" },
+                    { "FR643394271755", "4974018502231297" },
+                    { "FR294067299996", "4974018502233220" },
+                    { "FR405166505325", "4974018502237529" },
+                    { "FR310186823810", "4974018502238270" },
+                    { "FR371412253044", "4974018502239585" },
+                    { "FR331826409376", "4974018502239788" }
                 });
 
             migrationBuilder.InsertData(
@@ -298,6 +333,11 @@ namespace Projet.Datas.Migrations
                 column: "AccountNumber");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BankCards_AccountNumber",
+                table: "BankCards",
+                column: "AccountNumber");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Transactions_AccountNumber",
                 table: "Transactions",
                 column: "AccountNumber");
@@ -311,6 +351,9 @@ namespace Projet.Datas.Migrations
 
             migrationBuilder.DropTable(
                 name: "Anomalies");
+
+            migrationBuilder.DropTable(
+                name: "BankCards");
 
             migrationBuilder.DropTable(
                 name: "BusinessCustomers");

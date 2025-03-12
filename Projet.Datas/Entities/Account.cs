@@ -14,6 +14,8 @@ namespace Projet.Datas.Entities
 
 		public List<Transaction> Transactions { get; set; }
 
+		public List<BankCard> BankCards { get; set; }
+
 		public void Deposit(double amount)
 		{
 			Balance += amount;

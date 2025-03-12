@@ -12,8 +12,8 @@ using Projet.Datas;
 namespace Projet.Datas.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20250311212733_initDb")]
-    partial class initDb
+    [Migration("20250312091637_updateDatas")]
+    partial class updateDatas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -190,6 +190,73 @@ namespace Projet.Datas.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Projet.Datas.Entities.BankCard", b =>
+                {
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AccountNumber")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CardNumber", "AccountNumber");
+
+                    b.HasIndex("AccountNumber");
+
+                    b.ToTable("BankCards");
+
+                    b.HasData(
+                        new
+                        {
+                            CardNumber = "4974018502231235",
+                            AccountNumber = "FR294067299996"
+                        },
+                        new
+                        {
+                            CardNumber = "4974018502238270",
+                            AccountNumber = "FR310186823810"
+                        },
+                        new
+                        {
+                            CardNumber = "4974018502239788",
+                            AccountNumber = "FR331826409376"
+                        },
+                        new
+                        {
+                            CardNumber = "4974018502239585",
+                            AccountNumber = "FR371412253044"
+                        },
+                        new
+                        {
+                            CardNumber = "4974018502237529",
+                            AccountNumber = "FR405166505325"
+                        },
+                        new
+                        {
+                            CardNumber = "4974018502230410",
+                            AccountNumber = "FR592259348790"
+                        },
+                        new
+                        {
+                            CardNumber = "4974018502231297",
+                            AccountNumber = "FR643394271755"
+                        },
+                        new
+                        {
+                            CardNumber = "4974018502230778",
+                            AccountNumber = "FR660696569483"
+                        },
+                        new
+                        {
+                            CardNumber = "4974018502233220",
+                            AccountNumber = "FR294067299996"
+                        },
+                        new
+                        {
+                            CardNumber = "4974018502230660",
+                            AccountNumber = "FR960338827440"
+                        });
+                });
+
             modelBuilder.Entity("Projet.Datas.Entities.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -313,7 +380,7 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 1,
                             Amount = 150.75,
-                            CardNumber = "4974018502231456",
+                            CardNumber = "4974018502231235",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TransactionType = "CashDeposit"
@@ -322,7 +389,7 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 2,
                             Amount = 75.5,
-                            CardNumber = "4974018502232783",
+                            CardNumber = "4974018502238270",
                             Currency = "USD",
                             TransactionDate = new DateTime(2023, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TransactionType = "CashWithdrawal"
@@ -331,7 +398,7 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 3,
                             Amount = 220.0,
-                            CardNumber = "4974018502233920",
+                            CardNumber = "4974018502233220",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TransactionType = "CardPayment"
@@ -367,7 +434,7 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 7,
                             Amount = 400.0,
-                            CardNumber = "4974018502237422",
+                            CardNumber = "4974018502233220",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2023, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TransactionType = "CashDeposit"
@@ -615,7 +682,7 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 11,
                             Amount = 500.0,
-                            CardNumber = "4974018502231235",
+                            CardNumber = "4974018502231299",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TransactionType = "CashWithdrawal"
@@ -646,6 +713,17 @@ namespace Projet.Datas.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Projet.Datas.Entities.BankCard", b =>
+                {
+                    b.HasOne("Projet.Datas.Entities.Account", "BankAccount")
+                        .WithMany("BankCards")
+                        .HasForeignKey("AccountNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BankAccount");
+                });
+
             modelBuilder.Entity("Projet.Datas.Entities.Transaction", b =>
                 {
                     b.HasOne("Projet.Datas.Entities.Account", null)
@@ -673,6 +751,8 @@ namespace Projet.Datas.Migrations
 
             modelBuilder.Entity("Projet.Datas.Entities.Account", b =>
                 {
+                    b.Navigation("BankCards");
+
                     b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
