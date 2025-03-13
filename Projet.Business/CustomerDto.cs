@@ -29,6 +29,7 @@ namespace Projet.Business
         public string City { get; set; }
 
         [Required]
+        [RegularExpression(@"^.*@.*$", ErrorMessage = "L'adresse mail doit contenir un @.")]
         public string Email { get; set; }
     }
 }
