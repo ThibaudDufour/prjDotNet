@@ -18,7 +18,7 @@ namespace Projet.Datas.Entities
 
 		public void Deposit(double amount)
 		{
-			Balance += amount;
+			Balance += Math.Round(amount,2);
 		}
 
 		public bool Withdraw(double amount)
@@ -27,7 +27,7 @@ namespace Projet.Datas.Entities
 			{
 				return false;
 			}
-			Balance -= amount;
+			Balance -= Math.Round(amount,2);
 			return true;
 		}
 
