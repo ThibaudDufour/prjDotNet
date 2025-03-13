@@ -4,6 +4,12 @@ using System.Text.RegularExpressions;
 
 namespace Projet.Luhn
 {
+    public enum CardValidity
+    {
+        Valid,
+        Invalid
+    }
+
     public static class Luhn
     {
         public static bool IsValid(string CardNumber)
@@ -16,6 +22,9 @@ namespace Projet.Luhn
             {
                 return false;
             }
+
+            // Reverse the string
+            CardNumber = ReverseString(CardNumber);
 
             // The Luhn algorithm 
             for (int i = 0; i < CardNumber.Length; i++)
@@ -46,32 +55,9 @@ namespace Projet.Luhn
             return Regex.IsMatch(CardNumber,regex);
         }
 
-        public static string CreateValidCardNumber()
+        private static string CreateCardNumber(CardValidity validity)
         {
             string baseNum = "497401850223";
-            string cardNum;
-            var rand = new Random();
-
-            while (true) {
-                int[] tabInts = new int[4];
-
-                for (int i = 0; i < 4; i++)
-                {
-                    tabInts[i] = rand.Next(10);
-                }
-
-                if (IsValid(baseNum + string.Join("", tabInts)))
-                {
-                    return baseNum + string.Join("", tabInts);
-                }
-            }
-
-        }
-
-        public static string CreateInvalidCardNumber()
-        {
-            string baseNum = "497401850223";
-            string cardNum;
             var rand = new Random();
 
             while (true)
@@ -83,12 +69,42 @@ namespace Projet.Luhn
                     tabInts[i] = rand.Next(10);
                 }
 
-                if (!IsValid(baseNum + string.Join("", tabInts)))
+                if (validity == CardValidity.Valid)
                 {
-                    return baseNum + string.Join("", tabInts);
+                    if (IsValid(baseNum + string.Join("", tabInts)))
+                    {
+                        return baseNum + string.Join("", tabInts);
+                    }
+                } else
+                {
+                    if (!IsValid(baseNum + string.Join("", tabInts)))
+                    {
+                        return baseNum + string.Join("", tabInts);
+                    }
                 }
             }
+        }
 
+        public static string CreateValidCardNumber()
+        {
+            return CreateCardNumber(CardValidity.Valid);
+        }
+
+        public static string CreateInvalidCardNumber()
+        {
+            return CreateCardNumber(CardValidity.Invalid);
+        }
+
+        private static string ReverseString(string s)
+        {
+            string reverse = "";
+
+            for (int i = s.Length - 1; i >= 0 ; i--)
+            {
+                reverse += s[i];
+            }
+
+            return reverse;
         }
 
     }
