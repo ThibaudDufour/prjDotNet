@@ -92,9 +92,9 @@ namespace Projet.SaveTransactions
                         break;
                 }
 
-                Dictionary<string, double> dicExRate = await exchangeRateService.GetExchangeRate();
+                Dictionary<string, double> dicExRate = await exchangeRateService.GetExchangeRate(currency.ToString());
                 double rate;
-                dicExRate.TryGetValue(currency.ToString(), out rate);
+                dicExRate.TryGetValue(EnumCurrency.EUR.ToString(), out rate);
 
                 Transaction trans = new Transaction
                 {

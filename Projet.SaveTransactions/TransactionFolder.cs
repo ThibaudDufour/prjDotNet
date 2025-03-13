@@ -89,11 +89,6 @@ namespace Projet.SaveTransactions
                         if (Projet.Luhn.Luhn.IsValid(trans.CardNumber))
                         {
 
-                            Console.WriteLine("Devise : " + trans.Currency);
-                            Console.WriteLine("Taux de change : " + trans.ExchangeRate);
-                            Console.WriteLine("Amount : " + trans.Amount);
-                            Console.WriteLine("Valeur en € : " + (trans.Amount / trans.ExchangeRate));
-
                             TransactionDto transDto = new TransactionDto
                             {
                                 CardNumber = trans.CardNumber,
@@ -105,11 +100,11 @@ namespace Projet.SaveTransactions
 
                             if (await _transactionService.AddTransaction(transDto) > 0)
                             {
-                                Console.WriteLine("Ajout en base réussi");
+                                Console.WriteLine("Transaction Processed");
                             }
                             else
                             {
-                                Console.WriteLine("Echec de l'ajout en base");
+                                Console.WriteLine("Transaction Process Failure");
                             }
                         }
                         else
@@ -117,7 +112,7 @@ namespace Projet.SaveTransactions
                             AnomalyDto anoDto = new AnomalyDto
                             {
                                 CardNumber = trans.CardNumber,
-                                Amount = trans.Amount / trans.ExchangeRate,
+                                Amount = trans.Amount * trans.ExchangeRate,
                                 Currency = EnumCurrency.EUR,
                                 TransactionType = trans.TransactionType,
                                 TransactionDate = trans.TransactionDate
@@ -125,11 +120,11 @@ namespace Projet.SaveTransactions
 
                             if (await _anomalyService.AddTransaction(anoDto) > 0)
                             {
-                                Console.WriteLine("Ajout en base réussi");
+                                Console.WriteLine("Transaction Processed");
                             }
                             else
                             {
-                                Console.WriteLine("Echec de l'ajout en base");
+                                Console.WriteLine("Transaction Process Failure");
                             }
 
                         }
