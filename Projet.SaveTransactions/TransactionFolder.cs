@@ -92,7 +92,7 @@ namespace Projet.SaveTransactions
                             TransactionDto transDto = new TransactionDto
                             {
                                 CardNumber = trans.CardNumber,
-                                Amount = trans.Amount / trans.ExchangeRate,
+                                Amount = Math.Round(trans.Amount * trans.ExchangeRate,2),
                                 TransactionType = trans.TransactionType,
                                 TransactionDate = trans.TransactionDate,
                                 Currency = EnumCurrency.EUR
@@ -112,7 +112,7 @@ namespace Projet.SaveTransactions
                             AnomalyDto anoDto = new AnomalyDto
                             {
                                 CardNumber = trans.CardNumber,
-                                Amount = trans.Amount * trans.ExchangeRate,
+                                Amount = Math.Round(trans.Amount * trans.ExchangeRate,2),
                                 Currency = EnumCurrency.EUR,
                                 TransactionType = trans.TransactionType,
                                 TransactionDate = trans.TransactionDate
