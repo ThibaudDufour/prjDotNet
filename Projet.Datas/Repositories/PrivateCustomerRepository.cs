@@ -42,7 +42,7 @@ namespace Projet.Datas.Repositories
         public Task<int> Update(PrivateCustomer entity)
         {
             using var context = new MyDbContext();
-            context.PrivateCustomers.Update(entity);
+            context.Attach(entity).State = EntityState.Modified;
             return context.SaveChangesAsync();
         }
 

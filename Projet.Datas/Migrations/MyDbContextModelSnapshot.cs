@@ -395,7 +395,7 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 3,
                             Amount = 220.0,
-                            CardNumber = "4974018502233220",
+                            CardNumber = "4974018502233920",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TransactionType = "CardPayment"
@@ -431,7 +431,7 @@ namespace Projet.Datas.Migrations
                         {
                             Id = 7,
                             Amount = 400.0,
-                            CardNumber = "4974018502233220",
+                            CardNumber = "4974018502237422",
                             Currency = "EUR",
                             TransactionDate = new DateTime(2023, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TransactionType = "CashDeposit"

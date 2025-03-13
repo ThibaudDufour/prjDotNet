@@ -20,7 +20,7 @@ namespace Projet.Datas.Repositories
 		{
 			using var context = new MyDbContext();
 			return await context.BankCards
-				.Include("Account")
+				.Include(b => b.BankAccount)
 				.ToListAsync();
 		}
 
@@ -28,8 +28,8 @@ namespace Projet.Datas.Repositories
 		{
 			using var context = new MyDbContext();
 			return await context.BankCards
-				.Include("Account")
-				.Where(b => b.AccountNumber == accountNumber.ToUpper())
+                .Include(b => b.BankAccount)
+                .Where(b => b.AccountNumber == accountNumber.ToUpper())
 				.ToListAsync();
 		}
 
@@ -37,8 +37,8 @@ namespace Projet.Datas.Repositories
 		{
 			using var context = new MyDbContext();
 			return await context.BankCards
-				.Include("Account")
-				.FirstOrDefaultAsync(b => b.CardNumber == cardNumber);
+                .Include(b => b.BankAccount)
+                .FirstOrDefaultAsync(b => b.CardNumber == cardNumber);
 		}
 
 		public Task<int> Add(BankCard entity)

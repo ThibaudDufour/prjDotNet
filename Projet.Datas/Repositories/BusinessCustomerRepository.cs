@@ -49,7 +49,7 @@ namespace Projet.Datas.Repositories
 		public Task<int> Update(BusinessCustomer entity)
 		{
 			using var context = new MyDbContext();
-			context.BusinessCustomers.Update(entity);
+			context.Attach(entity).State = EntityState.Modified;
 			return context.SaveChangesAsync();
 		}
 

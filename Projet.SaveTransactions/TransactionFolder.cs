@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Projet.Business;
 using Projet.Business.Services;
+using Projet.Datas.Entities.Interfaces;
 
 namespace Projet.SaveTransactions
 {
@@ -58,11 +59,11 @@ namespace Projet.SaveTransactions
             }
         }
 
-        public static void CreateFile()
+        public static async Task CreateFile()
         {
             
             TransactionFile file = new TransactionFile();
-            file.Create();
+            await file.Create();
             Console.WriteLine("New transaction file created");
         }
 
@@ -82,11 +83,26 @@ namespace Projet.SaveTransactions
                         Converters = { new JsonStringEnumConverter() }
                     };
 
-                    var transData = JsonSerializer.Deserialize<List<TransactionDto>>(transJson, options);
-                    foreach (TransactionDto transDto in transData)
+                    var transData = JsonSerializer.Deserialize<List<Transaction>>(transJson, options);
+                    foreach (Transaction trans in transData)
                     {
-                        if (Projet.Luhn.Luhn.IsValid(transDto.CardNumber))
+                        if (Projet.Luhn.Luhn.IsValid(trans.CardNumber))
                         {
+
+                            Console.WriteLine("Devise : " + trans.Currency);
+                            Console.WriteLine("Taux de change : " + trans.ExchangeRate);
+                            Console.WriteLine("Amount : " + trans.Amount);
+                            Console.WriteLine("Valeur en € : " + (trans.Amount / trans.ExchangeRate));
+
+                            TransactionDto transDto = new TransactionDto
+                            {
+                                CardNumber = trans.CardNumber,
+                                Amount = trans.Amount / trans.ExchangeRate,
+                                TransactionType = trans.TransactionType,
+                                TransactionDate = trans.TransactionDate,
+                                Currency = EnumCurrency.EUR
+                            };
+
                             if (await _transactionService.AddTransaction(transDto) > 0)
                             {
                                 Console.WriteLine("Ajout en base réussi");
@@ -100,11 +116,11 @@ namespace Projet.SaveTransactions
                         {
                             AnomalyDto anoDto = new AnomalyDto
                             {
-                                CardNumber = transDto.CardNumber,
-                                Amount = transDto.Amount,
-                                Currency = transDto.Currency,
-                                TransactionType = transDto.TransactionType,
-                                TransactionDate = transDto.TransactionDate
+                                CardNumber = trans.CardNumber,
+                                Amount = trans.Amount / trans.ExchangeRate,
+                                Currency = EnumCurrency.EUR,
+                                TransactionType = trans.TransactionType,
+                                TransactionDate = trans.TransactionDate
                             };
 
                             if (await _anomalyService.AddTransaction(anoDto) > 0)
@@ -126,6 +142,26 @@ namespace Projet.SaveTransactions
 
                 string destination = transfile.Replace(folderPath, logFolderPath);
                 File.Move(transfile, destination);
+            }
+        }
+
+        public static async Task CreateFilesAsync()
+        {
+            while (true)
+            {
+                await Task.Delay(10000);
+
+                await CreateFile();
+            }
+        }
+
+        public static async Task ProcessFilesAsync()
+        {
+            while (true)
+            {
+                await Task.Delay(30000);
+
+                await ProcessFiles();
             }
         }
     }

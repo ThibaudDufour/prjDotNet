@@ -15,6 +15,13 @@ namespace Projet.Business.Services
 			_mapper = MappingConfig.Mapper;
 		}
 
+		public async Task<List<string>> GetAllCardsNumber()
+		{
+			var cards = await _bankCardRepository.GetAll();
+			var cardsNumbers = cards.Select(cards => cards.CardNumber).ToList<string>();
+			return cardsNumbers;
+		}
+
 		public async Task<List<BankCardDto>> GetCardsByAccount(string accountNumber)
 		{
 			var cards = await _bankCardRepository.GetByAccountId(accountNumber);

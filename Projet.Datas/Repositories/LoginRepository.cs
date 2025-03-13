@@ -46,7 +46,7 @@ namespace Projet.Datas.Repositories
 		public async Task<int> Update(LoginUser entity)
 		{
 			using var context = new MyDbContext();
-			context.LoginUsers.Update(entity);
+			context.Attach(entity).State = EntityState.Modified;
 			return await context.SaveChangesAsync();
 		}
 
